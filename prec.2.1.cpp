@@ -1,94 +1,66 @@
 #include <iostream>
-#include <string>
-
 using namespace std;
 
-class Library
+class Rectangle
 {
-    string book_name;
-    int bookid;
-    string author_name;
-    int copies;
+    int rectangle_id;
+    float length, breadth;
 
 public:
-    bool search_book(string);
-    void set_data();
-    void add_book();
-    void issue_book();
-    void return_book();
-    void display_book();
+    void area();
+    void perimeter();
+    void update_dimensions();
+    void display_rectangle();
+    void set_rectangle_data(int id);
 };
 
-bool Library::search_book(string bookname)
+void Rectangle::area()
 {
-    return bookname == book_name;
+    cout << "Area is: " << length * breadth << endl;
 }
 
-void Library::set_data()
+void Rectangle::perimeter()
 {
-    cout << "Enter Book's Name: ";
-    cin.ignore();
-    getline(cin, book_name);
-
-    cout << "Enter Author's Name: ";
-    getline(cin, author_name);
-
-    cout << "Enter Book ID: ";
-    cin >> bookid;
-
-    cout << "Enter Number of copies: ";
-    cin >> copies;
+    cout << "Perimeter is: " << 2 * (length + breadth) << endl;
 }
 
-void Library::add_book()
+void Rectangle::update_dimensions()
 {
-    int no;
-    cout << "Enter number of copies to add: ";
-    cin >> no;
-    copies += no;
+    cout << "Enter New Length: ";
+    cin >> length;
+    cout << "Enter New Breadth: ";
+    cin >> breadth;
 }
 
-void Library::issue_book()
+void Rectangle::display_rectangle()
 {
-    if (copies > 0)
-    {
-        copies--;
-        cout << "Book Issued Successfully!" << endl;
-    }
-    else
-    {
-        cout << "No copies available!" << endl;
-    }
+    cout << "Rectangle ID: " << rectangle_id
+         << " | Length: " << length
+         << " | Breadth: " << breadth << endl;
 }
 
-void Library::return_book()
+void Rectangle::set_rectangle_data(int id)
 {
-    copies++;
-    cout << "Book Returned Successfully!" << endl;
-}
-
-void Library::display_book()
-{
-    cout << "\nBook's Name: " << book_name << endl;
-    cout << "Author: " << author_name << endl;
-    cout << "Book ID: " << bookid << endl;
-    cout << "Copies Available: " << copies << endl;
+    rectangle_id = id;
+    cout << "Enter Length: ";
+    cin >> length;
+    cout << "Enter Breadth: ";
+    cin >> breadth;
 }
 
 int main()
 {
-    int choice, t = 0, i;
-    string input_book;
-    Library book[10];
+    int choice, i, rect_no_input, t = 0;
+    Rectangle rect[10];
 
     while (true)
     {
-        cout << "\n===== Library Menu =====" << endl;
-        cout << "1. Set Book Data" << endl;
-        cout << "2. Add Book" << endl;
-        cout << "3. Issue Book" << endl;
-        cout << "4. Return Book" << endl;
-        cout << "5. Display Book" << endl;
+        cout << "\n===== Rectangle Menu =====" << endl;
+        cout << "1. Add Rectangle" << endl;
+        cout << "2. Change Rectangle Dimensions" << endl;
+        cout << "3. Display Rectangles" << endl;
+        cout << "4. Calculate Area" << endl;
+        cout << "5. Calculate Perimeter" << endl;
         cout << "6. Exit" << endl;
         cout << "Enter Choice: ";
         cin >> choice;
@@ -96,84 +68,55 @@ int main()
         switch (choice)
         {
         case 1:
-            book[t].set_data();
-            t++;
+            if (t < 10)
+            {
+                rect[t].set_rectangle_data(t);
+                t++;
+            }
+            else
+            {
+                cout << "Maximum limit reached!" << endl;
+            }
             break;
 
         case 2:
-            cout << "Enter Book Name: ";
-            cin.ignore();
-            getline(cin, input_book);
-
-            for (i = 0; i < t; i++)
-            {
-                if (book[i].search_book(input_book))
-                {
-                    book[i].add_book();
-                    break;
-                }
-            }
-            if (i == t)
-                cout << "Book not found!" << endl;
+            cout << "Enter Rectangle ID: ";
+            cin >> rect_no_input;
+            if (rect_no_input >= 0 && rect_no_input < t)
+                rect[rect_no_input].update_dimensions();
+            else
+                cout << "Invalid Rectangle ID!" << endl;
             break;
 
         case 3:
-            cout << "Enter Book Name: ";
-            cin.ignore();
-            getline(cin, input_book);
-
             for (i = 0; i < t; i++)
-            {
-                if (book[i].search_book(input_book))
-                {
-                    book[i].issue_book();
-                    break;
-                }
-            }
-            if (i == t)
-                cout << "Book not found!" << endl;
+                rect[i].display_rectangle();
             break;
 
         case 4:
-            cout << "Enter Book Name: ";
-            cin.ignore();
-            getline(cin, input_book);
-
-            for (i = 0; i < t; i++)
-            {
-                if (book[i].search_book(input_book))
-                {
-                    book[i].return_book();
-                    break;
-                }
-            }
-            if (i == t)
-                cout << "Book not found!" << endl;
+            cout << "Enter Rectangle ID: ";
+            cin >> rect_no_input;
+            if (rect_no_input >= 0 && rect_no_input < t)
+                rect[rect_no_input].area();
+            else
+                cout << "Invalid Rectangle ID!" << endl;
             break;
 
         case 5:
-            cout << "Enter Book Name: ";
-            cin.ignore();
-            getline(cin, input_book);
-
-            for (i = 0; i < t; i++)
-            {
-                if (book[i].search_book(input_book))
-                {
-                    book[i].display_book();
-                    break;
-                }
-            }
-            if (i == t)
-                cout << "Book not found!" << endl;
+            cout << "Enter Rectangle ID: ";
+            cin >> rect_no_input;
+            if (rect_no_input >= 0 && rect_no_input < t)
+                rect[rect_no_input].perimeter();
+            else
+                cout << "Invalid Rectangle ID!" << endl;
             break;
 
         case 6:
-            cout << "Visit Again!" << endl;
+            cout << "Thank You!" << endl;
             return 0;
 
         default:
-            cout << "Invalid Choice!" << endl;
+            cout << "Invalid Choice! Try Again." << endl;
         }
     }
 }
