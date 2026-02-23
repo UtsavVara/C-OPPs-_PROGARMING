@@ -40,7 +40,7 @@ public:
 int main()
 {
     Student s1;  // Default Constructor
-    Student s2("Megh", 99, 95.5, 94.8, 100);  // Parameterized Constructor
+    Student s2("Utsav", 96, 94.5, 98, 99);  // Parameterized Constructor
 
     cout << "Student 1 Details:" << endl;
     s1.display();
